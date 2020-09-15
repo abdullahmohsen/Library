@@ -11,10 +11,16 @@ class Book extends Model
         'name', 'desc', 'img', 'price', 'author_id'
     ];
 
-    // book belongsTo author
+    //Book belongsTo author
     public function author()
     {
         return $this->belongsTo('App\Author');
+    }
+
+    //Book belongsToMany categories 
+    public function categories()
+    {
+        return $this->belongsToMany('App\Category');
     }
     
 }

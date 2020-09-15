@@ -77,8 +77,9 @@ class BookController extends Controller
             'price' => 'required|numeric|max:999999.99',
             'author_id' => 'required|exists:authors,id' //for check the id is inside database or not
         ]);
-        //move image to public/uploads
-        $img = $request->img; //or file('img');
+
+        //move image to public >uploads folder
+        $img = $request->img; //or $request->file('img');
         $ext = $img->getClientOriginalExtension();
         $name = "book-" . uniqid() . ".$ext";
         $img->move( public_path('uploads'), $name );
@@ -93,7 +94,7 @@ class BookController extends Controller
         Book::create([
             'name' => $request->name,
             'desc' => $request->desc,
-            'img' => $name,
+            'img' => $name, //bkhzn fel database esm el img bs
             'price' => $request->price,
             'author_id' => $request->author_id
         ]);
@@ -126,15 +127,18 @@ class BookController extends Controller
         $book = Book::findOrFail($id);
         $name = $book->img;
 
+        //Lw fe image
         if($request->hasFile('img'))
         {
             //if he uploaded new image
             if($name !== null)
+            {
                 //delete the old img
-                unlink( public_path("uploads/$name") ); //Delete img
+                unlink( public_path("uploads/$name") );
+            }
 
             //upload the new img
-            $img = $request->img; //file('img');
+            $img = $request->img; //or file('img');
             $ext = $img->getClientOriginalExtension();
             $name = "book-" . uniqid() . ".$ext";
             $img->move( public_path('uploads'), $name );
@@ -159,7 +163,7 @@ class BookController extends Controller
         $name = $book->img;
         if($name !== null)
         {
-            //Delete img
+            //Delete img from folder
             unlink( public_path("uploads/$name") ); 
         }
             

@@ -29,7 +29,7 @@
             <h2>{{ $book->name }}</h2>
         </a>
         <p>{{ $book->desc }}</p>
-        <p>{{ $book->price }}</p>
+        <p>Price: {{ $book->price }} EGP</p>
         <a href="{{ route('showBooks', $book->id) }}" class="btn btn-primary">Show</a>
 
         @auth

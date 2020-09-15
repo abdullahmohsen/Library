@@ -13,8 +13,19 @@
     @endif
     
     <h3>{{ $book->name }}</h3>
+    <p class="mb-0">Categories:</p>
+    <ul>
+        @foreach ($book->categories as $category)
+            <li>
+                <a href="{{ route('categories.show', $category->id) }}">
+                    {{ $category->name }}
+                </a>
+            </li>
+        @endforeach
+    </ul>
+    
     <p>{{ $book->desc }}</p>
-    <p>${{ $book->price }}</p>
+    <p>Price: {{ $book->price }} EGP</p>
     
     <p>By:
         <a href="{{ route('showAuthor', $book->author->id) }}">

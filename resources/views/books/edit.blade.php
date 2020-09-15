@@ -11,13 +11,13 @@
     <form method="POST" action="{{ route('Books.update', $book->id) }}" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
-            <input type="text" class="form-control" name="name" placeholder="name" value="{{ $book->name }}">
+            <input type="text" class="form-control" name="name" placeholder="name" value="{{ old('name') ?? $book->name }}">
         </div>
         <div class="form-group">
-            <textarea class="form-control" rows="8" name="desc" placeholder="description">{{ $book->desc }}</textarea>
+            <textarea class="form-control" rows="8" name="desc" placeholder="description">{{ old('desc') ?? $book->desc }}</textarea>
         </div>
         <div class="form-group">
-            <input type="number" class="form-control" name="price" placeholder="price" value="{{ $book->price }}">
+            <input type="number" class="form-control" name="price" placeholder="price" value="{{ old('price') ?? $book->price }}">
         </div>
         <select class="form-control" name="author_id">
             @foreach ($authors as $author)

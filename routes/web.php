@@ -27,15 +27,22 @@ Route::middleware('userAuth')->group(function() {
     //logout
     Route::get('/logout', 'AuthController@logout')->name('auth.logout');
 
-    Route::middleware('isAdmin')->group(function() {
-    //Delete for Authors
-    Route::get('/authors/delete/{id}', 'AuthorController@delete')->name('deleteAuthors');
+    // Route::middleware('isAdmin')->group(function() {
+        //Delete Authors
+        Route::get('/authors/delete/{id}', 'AuthorController@delete')->name('deleteAuthors');
+    
+        //Delete Books
+        Route::get('/books/delete/{id}', 'BookController@delete')->name('Books.delete');
 
-    //Create for Authors
+        //Delete categories
+        Route::get('/categories/delete/{id}', 'CategoryController@delete')->name('categories.delete');
+    // });
+
+    //Create Authors
     Route::get('/authors/create', 'AuthorController@create')->name('createAuthors');
     Route::post('/authors/store', 'AuthorController@store')->name('storeAuthors');
 
-    // Update for Authors
+    // Update Authors
     Route::get('/authors/edit/{id}', 'AuthorController@edit')->name('editAuthors');
     Route::post('/authors/update/{id}', 'AuthorController@update')->name('updateAuthors');
 
@@ -47,9 +54,13 @@ Route::middleware('userAuth')->group(function() {
     Route::get('/books/edit/{id}', 'BookController@edit')->name('Books.edit');
     Route::post('/books/update/{id}', 'BookController@update')->name('Books.update');
 
-    //Delete Books
-    Route::get('/books/delete/{id}', 'BookController@delete')->name('Books.delete');
-    });
+    //Create categories
+    Route::get('/categories/create', 'CategoryController@create')->name('categories.create');
+    Route::post('/categories/store', 'CategoryController@store')->name('categories.store');
+
+    // Update categories
+    Route::get('/categories/edit/{id}', 'CategoryController@edit')->name('categories.edit');
+    Route::post('/categories/update/{id}', 'CategoryController@update')->name('categories.update');
 
 });
 
@@ -63,7 +74,7 @@ Route::get('/', function () {
 
 /* Authors */
 
-// Read
+// Read Authors
 Route::get('/authors', 'AuthorController@index')->name('allAuthors');
 Route::get('/authors/latest', 'AuthorController@latest')->name('latestAuthors');
 Route::get('/authors/show/{id}', 'AuthorController@show')->name('showAuthor');
@@ -78,3 +89,11 @@ Route::get('/books', 'BookController@index')->name('allBooks');
 // Route::get('/books/latest', 'BookController@latest')->name('latestBooks');
 Route::get('/books/show/{id}', 'BookController@show')->name('showBooks');
 // Route::get('/books/search/{word}', 'BookController@search')->name('searchBooks');
+
+
+/* categories */
+
+//Read categories
+Route::get('/categories', 'CategoryController@index')->name('categories.index');
+Route::get('/categories/show/{id}', 'CategoryController@show')->name('categories.show');
+
