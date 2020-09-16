@@ -26,9 +26,16 @@
                     <a class="nav-link" href="{{ route('allBooks') }}">Books</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('allAuthors') }}">Authors</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('categories.index') }}">Categories</a>
                 </li>
-
+                @auth
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('notes.index') }}">My Notes</a>
+                    </li>
+                @endauth
             </ul>
         </div>
       
@@ -36,23 +43,22 @@
             <ul class="navbar-nav ml-auto">
 
                 @guest
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('auth.register') }}">Register</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('auth.login') }}">Login</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('auth.register') }}">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('auth.login') }}">Login</a>
+                    </li>
                 @endguest
 
                 @auth
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">{{ Auth::user()->role }}: {{ Auth::user()->name }}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('auth.logout') }}">Logout</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('auth.logout') }}">Logout</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active">{{ Auth::user()->role }}: {{ Auth::user()->name }}</a>
+                    </li>
                 @endauth
-
 
             </ul>
         </div>

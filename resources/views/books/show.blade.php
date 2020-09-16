@@ -25,14 +25,14 @@
     </ul>
     
     <p>{{ $book->desc }}</p>
-    <p>Price: {{ $book->price }} EGP</p>
+    <p class="text-muted">Price: {{ $book->price }} EGP</p>
     
     <p>By:
         <a href="{{ route('showAuthor', $book->author->id) }}">
             {{ $book->author->name }}
         </a>
     </p>
-    <p>Brif description about author: {{ $book->author->bio }}</p>
+    <p><span>Brif description about author: </span>{{ $book->author->bio }}</p>
 
     <hr>
 

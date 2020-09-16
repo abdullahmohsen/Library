@@ -24,6 +24,8 @@ class CreateUsersTable extends Migration
             // is_user -> 1,0
             
             $table->enum('role', ['admin', 'user'])->default('user');
+            // $table->boolean('is_admin')->default(0);
+
             $table->string('api_token', 64)->nullable();
 
             $table->timestamps();

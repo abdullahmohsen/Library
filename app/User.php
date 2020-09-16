@@ -17,4 +17,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password'
     ];
+
+    //User hasMany notes 
+    public function notes()
+    {
+        return $this->hasMany('App\Note');
+    }
 }

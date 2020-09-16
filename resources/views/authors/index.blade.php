@@ -1,7 +1,7 @@
 @extends('layouts/app')
 
 @section('title')
-    All authors
+    All Authors
 @endsection
 
 @section('styles')
@@ -14,7 +14,7 @@
 
 @section('content')
     <div class="d-flex justify-content-between align-items-start">
-        <h1>All authors</h1>
+        <h1>All Authors</h1>
         @auth
         <a href="{{ route('createAuthors') }}" class="btn btn-primary">Add new</a>
         @endauth

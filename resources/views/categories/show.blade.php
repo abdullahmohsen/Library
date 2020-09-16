@@ -14,7 +14,7 @@
     <ul>
         @foreach ($category->books as $book)
             <li>
-                <a href="{{ route('categories.show', $book->id) }}">
+                <a href="{{ route('showBooks', $book->id) }}">
                     {{ $book->name }}
                 </a>
             </li>

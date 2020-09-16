@@ -16,9 +16,10 @@ class isUser
      */
     public function handle($request, Closure $next)
     {
+        // Auth::check() && Auth::user()->id_admin == 0
         if ( Auth::user()->role == 'user') 
         {
-            return $next($request);
+            return $next($request); //go on
         }
         return redirect( route('allBooks') );
     }

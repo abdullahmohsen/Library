@@ -14,20 +14,22 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
-    public function doRegister(Request $request)
+    public function handleRegister(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:100',
             'email' => 'required|email|max:100',
-            'password' => 'required|string|min:6'
+            'password' => 'required|string|min:5'
         ]);
 
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password)
-            
         ]);
+        // Login direct
+        Auth::Login($user);
+
         return redirect( route('allBooks') ); //l7ad m3ml l saf7a l ra2esia
     }
 
@@ -36,11 +38,11 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    public function doLogin(Request $request)
+    public function handleLogin(Request $request)
     {
         $request->validate([
             'email' => 'required|email|max:100',
-            'password' => 'required|string|min:6'
+            'password' => 'required|string|min:5'
         ]);
         
         // $is_login = Auth::attempt(['email' => $request->email, 'password' => $request->password]);
@@ -48,7 +50,8 @@ class AuthController extends Controller
     
         if ( ! Auth::attempt(['email' => $request->email, 'password' => $request->password])) 
         {
-            return redirect( route('auth.login') );
+            // return redirect( route('auth.login') );
+            return back();
         }
 
         return redirect( route('allBooks') );

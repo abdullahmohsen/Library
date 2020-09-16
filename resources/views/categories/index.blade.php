@@ -29,8 +29,10 @@
 
         @auth
             <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-info">Edit</a>
-            <a href="{{ route('categories.delete', $category->id) }}" class="btn btn-danger">Delete</a>
-        @endauth
+            @if(Auth::user()->role == 'admin')
+                <a href="{{ route('categories.delete', $category->id) }}" class="btn btn-danger">Delete</a>
+            @endif
+         @endauth
     @endforeach
 
     <div class="my-5">

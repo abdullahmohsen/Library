@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Author;
 use Illuminate\Http\Request;
 use App\Book;
+use App\Category;
 
 class BookController extends Controller
 {
@@ -61,9 +62,12 @@ class BookController extends Controller
 
     public function create()
     {
-        $authors = Author::select('id', 'name')->get(); //for dropdown
+        $authors = Author::select('id', 'name')->get(); //bagbha mn el database 3shan astkhdemha fel dropdown
+        $categories = Category::select('id', 'name')->get(); //bagbha mn el database 3shan astkhdemha fel checkbox
+        
         return view('books.create', [
-            'authors' => $authors
+            'authors' => $authors,
+            'categories' => $categories
         ]);
     }
 
@@ -75,8 +79,12 @@ class BookController extends Controller
             'desc' => 'required|string',
             'img' => 'required|image|mimes:jpeg,jpg,png|max:2048',
             'price' => 'required|numeric|max:999999.99',
-            'author_id' => 'required|exists:authors,id' //for check the id is inside database or not
+            'author_id' => 'required|exists:authors,id', //for check the id is inside database or not
+            'category_ids' => 'required',
+            'category_ids.*' => 'exists:categories,id' //mwgoda fel table categories fel column id
         ]);
+
+        // dd($request->all());
 
         //move image to public >uploads folder
         $img = $request->img; //or $request->file('img');
@@ -91,13 +99,16 @@ class BookController extends Controller
         // dd($name);
 
         //ya model ely esmk book khazn el data fel database b method esmha create
-        Book::create([
+        $book = Book::create([
             'name' => $request->name,
             'desc' => $request->desc,
             'img' => $name, //bkhzn fel database esm el img bs
             'price' => $request->price,
             'author_id' => $request->author_id
         ]);
+
+        $book->categories()->sync($request->category_ids);
+
         return redirect( route('allBooks') );
 
     }
@@ -106,10 +117,12 @@ class BookController extends Controller
     {
         $book = Book::findOrFail($id);
         $authors = Author::select('id', 'name')->get(); //for dropdown
+        $categories = Category::select('id', 'name')->get();
 
         return view('books.edit',[
             'book' => $book,
-            'authors' => $authors
+            'authors' => $authors,
+            'categories' => $categories
         ]);
     }
 
@@ -121,7 +134,9 @@ class BookController extends Controller
             'desc' => 'required|string',
             'img' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
             'price' => 'required|numeric|max:999999.99',
-            'author_id' => 'required|exists:authors,id' //for check the id is inside database or not
+            'author_id' => 'required|exists:authors,id', //for check the id is inside database or not
+            'category_ids' => 'required',
+            'category_ids.*' => 'exists:categories,id'
         ]);
 
         $book = Book::findOrFail($id);
@@ -151,6 +166,9 @@ class BookController extends Controller
             'price' => $request->price,
             'author_id' => $request->author_id
         ]);
+
+        $book->categories()->sync($request->category_ids);
+
         // return redirect( route('Books.edit', $id) );
         return redirect( route('allBooks') );
         // return back();

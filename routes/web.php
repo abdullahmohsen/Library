@@ -16,18 +16,18 @@ use Illuminate\Support\Facades\Route;
 /* Authentication */
 //register
 Route::get('/register', 'AuthController@register')->name('auth.register');
-Route::post('/do-register', 'AuthController@doRegister')->name('auth.doRegister');
+Route::post('/handle-register', 'AuthController@handleRegister')->name('auth.handleRegister');
 
 //login
 Route::get('/login', 'AuthController@login')->name('auth.login');
-Route::post('/do-login', 'AuthController@doLogin')->name('auth.doLogin');
+Route::post('/handle-login', 'AuthController@handleLogin')->name('auth.handleLogin');
 
 Route::middleware('userAuth')->group(function() {
 
     //logout
     Route::get('/logout', 'AuthController@logout')->name('auth.logout');
 
-    // Route::middleware('isAdmin')->group(function() {
+    Route::middleware('isAdmin')->group(function() {
         //Delete Authors
         Route::get('/authors/delete/{id}', 'AuthorController@delete')->name('deleteAuthors');
     
@@ -36,7 +36,7 @@ Route::middleware('userAuth')->group(function() {
 
         //Delete categories
         Route::get('/categories/delete/{id}', 'CategoryController@delete')->name('categories.delete');
-    // });
+    });
 
     //Create Authors
     Route::get('/authors/create', 'AuthorController@create')->name('createAuthors');
@@ -62,8 +62,21 @@ Route::middleware('userAuth')->group(function() {
     Route::get('/categories/edit/{id}', 'CategoryController@edit')->name('categories.edit');
     Route::post('/categories/update/{id}', 'CategoryController@update')->name('categories.update');
 
-});
+    //Read notes
+    Route::get('/notes', 'NoteController@index')->name('notes.index');
 
+    //Create notes
+    Route::get('/notes/create', 'NoteController@create')->name('notes.create');
+    Route::post('/notes/store', 'NoteController@store')->name('notes.store');
+
+    // Update Books
+    Route::get('/notes/edit/{id}', 'NoteController@edit')->name('notes.edit');
+    Route::post('/notes/update/{id}', 'NoteController@update')->name('notes.update');
+
+    //Delete notes
+    Route::get('/notes/delete/{id}', 'NoteController@delete')->name('notes.delete');
+
+});
 
 
 Route::get('/', function () {
