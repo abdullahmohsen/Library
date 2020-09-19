@@ -27,6 +27,7 @@ class CreateUsersTable extends Migration
             // $table->boolean('is_admin')->default(0);
 
             $table->string('api_token', 64)->nullable();
+            $table->string('oauth_token', 255)->nullable(); //for signup with any another website
 
             $table->timestamps();
         });

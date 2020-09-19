@@ -103,6 +103,10 @@ Route::get('/books', 'BookController@index')->name('allBooks');
 Route::get('/books/show/{id}', 'BookController@show')->name('showBooks');
 // Route::get('/books/search/{word}', 'BookController@search')->name('searchBooks');
 
+//AJAX get request for real time search
+Route::get('/books/search', 'BookController@search')->name('books.search');
+
+
 
 /* categories */
 
@@ -110,3 +114,13 @@ Route::get('/books/show/{id}', 'BookController@show')->name('showBooks');
 Route::get('/categories', 'CategoryController@index')->name('categories.index');
 Route::get('/categories/show/{id}', 'CategoryController@show')->name('categories.show');
 
+
+//Oauth 
+Route::get('login/github', 'AuthController@redirectToProviderGithub')->name('auth.github.redirect');
+Route::get('login/github/callback', 'AuthController@handleProviderCallbackGithub')->name('auth.github.callback');
+
+Route::get('login/facebook', 'AuthController@redirectToProviderFacebook')->name('auth.facebook.redirect');
+Route::get('login/facebook/callback', 'AuthController@handleProviderCallbackFacebook')->name('auth.facebook.callback');
+
+Route::get('login/google', 'AuthController@redirectToProviderGoogle')->name('auth.google.redirect');
+Route::get('login/google/callback', 'AuthController@handleProviderCallbackGoogle')->name('auth.google.callback');

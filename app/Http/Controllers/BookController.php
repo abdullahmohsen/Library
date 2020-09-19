@@ -12,8 +12,10 @@ class BookController extends Controller
     public function index()
     {
         // call the model to fetch all books
-        $books = Book::orderBy('id', 'DESC')->paginate(4);
+        // $books = Book::orderBy('id', 'DESC')->paginate(4);
+        $books = Book::orderBy('id', 'DESC')->get();
         
+
         // $books = Book::get(); //select all
         // $books = Book::select('name', 'desc')->get();
         // $books = Book::where('id', '>=', 2)->get();
@@ -184,9 +186,19 @@ class BookController extends Controller
             //Delete img from folder
             unlink( public_path("uploads/$name") ); 
         }
+
+        // $book->categories()->sync([]);
             
         $book->delete();
 
         return back();
+    }
+
+    public function search(Request $request)
+    {
+        $keyword = $request->keyword;
+        $books = Book::where('name', 'like', "%$keyword%")->get();
+
+        return response()->json($books);
     }
 }

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Socialite\Facades\Socialite;
+
 
 class AuthController extends Controller
 {
@@ -62,5 +64,100 @@ class AuthController extends Controller
     {
         Auth::logout();
         return redirect( route('auth.login'));
+    }
+
+    public function redirectToProviderGithub()
+    {
+        return Socialite::driver('github')->redirect();
+    }
+
+    public function handleProviderCallbackGithub()
+    {
+        $user = Socialite::driver('github')->user();
+
+        // $user->token;
+        // dd($user);
+        $email = $user->email;
+        $db_user = User::where('email', '=', $email)->first();
+        if ($db_user == null) 
+        {
+            $registered_user = User::create([
+                'name' => $user->name, //nickname
+                'email' => $user->email, 
+                'password' => Hash::make('12345'),
+                'oauth_token' => $user->token
+            ]);
+            Auth::login($registered_user); //khazen el data fel session
+        }
+        else 
+        {
+            Auth::login($db_user);
+        }
+        
+        return redirect(route('allBooks'));
+    }
+
+
+
+    public function redirectToProviderFacebook()
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    public function handleProviderCallbackFacebook()
+    {
+        $user = Socialite::driver('facebook')->user();
+
+        // $user->token;
+        // dd($user);
+        $email = $user->email;
+        $db_user = User::where('email', '=', $email)->first();
+        if ($db_user == null) 
+        {
+            $registered_user = User::create([
+                'name' => $user->name, //nickname
+                'email' => $user->email, 
+                'password' => Hash::make('12345'),
+                'oauth_token' => $user->token
+            ]);
+            Auth::login($registered_user); //khazen el data fel session
+        }
+        else 
+        {
+            Auth::login($db_user);
+        }
+        
+        return redirect(route('allBooks'));
+    }
+
+    public function redirectToProviderGoogle()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleProviderCallbackGoogle()
+    {
+        $user = Socialite::driver('google')->user();
+
+        // $user->token;
+        // dd($user);
+        $email = $user->email;
+        $db_user = User::where('email', '=', $email)->first();
+        if ($db_user == null) 
+        {
+            $registered_user = User::create([
+                'name' => $user->name, //nickname
+                'email' => $user->email, 
+                'password' => Hash::make('12345'),
+                'oauth_token' => $user->token
+            ]);
+            Auth::login($registered_user); //khazen el data fel session
+        }
+        else 
+        {
+            Auth::login($db_user);
+        }
+        
+        return redirect(route('allBooks'));
     }
 }

@@ -21,4 +21,11 @@
         <button type="submit" class="btn btn-primary">Login</button>
     </form>
     
+    <a href="{{ route('auth.github.redirect') }}" class="btn btn-primary mt-4">Login in with Github</a>
+    <a href="{{ route('auth.facebook.redirect') }}" class="btn btn-primary mt-4">Login in with Facebook</a>
+    <a href="{{ route('auth.google.redirect') }}" class="btn btn-primary mt-4">Login in with Google</a>
+
 @endsection
+
+
+

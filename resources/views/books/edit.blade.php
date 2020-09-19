@@ -23,7 +23,7 @@
             <input type="number" class="form-control" name="price" placeholder="Price" value="{{ old('price') ?? $book->price }}">
         </div>
 
-        <select class="form-control" name="author_id">
+        <select class="custom-select" name="author_id">
             @foreach ($authors as $author)
                 <option value="{{ $author->id }}" @if($author->id == $book->author_id) selected @endif >
                     {{ $author->name }}

@@ -13,6 +13,10 @@
 @endsection
 
 @section('content')
+    <div>
+        <input type="text" id="keyword">
+    </div>
+
     <div class="d-flex justify-content-between align-items-center">
         <h1>All Books</h1>
         @auth
@@ -20,6 +24,7 @@
         @endauth
     </div>
 
+    <div id="allBooks">
     @foreach($books as $book)
         <hr>
         @if ($book->img !== null)
@@ -39,8 +44,44 @@
             @endif
         @endauth
     @endforeach
-
-    <div class="my-5">
-        {!! $books->render() !!} <!-- parser to HTML  -->
     </div>
+
+    {{-- <div class="my-5">
+        {!! $books->render() !!} <!-- parser to HTML  -->
+    </div> --}}
 @endsection 
+
+
+@section('script')
+    <script>
+        $('#keyword').keyup(function() {
+            let keyword = $(this).val() //read th value
+            //console.log(keyword);
+
+            let url = "{{ route('books.search') }}" + "?keyword=" + keyword //url for get search with concatenate 
+            //console.log(url);
+            
+            //AJAX request snippet (eb3t AJAX request bel data ely rg3alk)
+            $.ajax({
+                type: "GET",
+                url: url,
+                contentType: false,
+                processData: false,
+                success: function (data)
+                {
+                    //console.log(data);
+                    $('#allBooks').empty() //empty 3shan yms7ly ely bra el search
+                    for (book of data) {
+                        //console.log(book.name);
+                        $('#allBooks').append(`
+                            <h3>${book.name}</h3>
+                            <p>${book.desc}</p>
+                        `)
+                    }
+                    //if (data.length == 0){ }
+                }
+            })
+        })
+        
+    </script>
+@endsection

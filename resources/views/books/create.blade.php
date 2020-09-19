@@ -19,7 +19,8 @@
         <div class="form-group">
             <input type="text" class="form-control" name="price" placeholder="Price" value="{{ old('price') }}">
         </div>
-        <select class="form-control" name="author_id">
+        <select class="custom-select" name="author_id">
+            <option selected disabled>Select author</option>
             @foreach ($authors as $author)
                 <option value="{{ $author->id }}">
                     {{ $author->name }}

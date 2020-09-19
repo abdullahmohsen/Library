@@ -137,6 +137,7 @@ class AuthorController extends Controller
     public function delete($id)
     {
         $author = Author::find($id);
+        
         $name = $author->img;
         if($name !== null)
             unlink( public_path("uploads/$name") ); //Delete img

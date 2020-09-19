@@ -23,6 +23,11 @@
         </div>
         
         <button type="submit" class="btn btn-primary">Register</button>
+
     </form>
+
+    <a href="{{ route('auth.github.redirect') }}" class="btn btn-primary mt-4">Continue with github</a>
+
+
     
 @endsection
