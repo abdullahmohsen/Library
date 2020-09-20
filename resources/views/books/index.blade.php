@@ -13,37 +13,41 @@
 @endsection
 
 @section('content')
-    <div>
-        <input type="text" id="keyword">
-    </div>
 
-    <div class="d-flex justify-content-between align-items-center">
-        <h1>All Books</h1>
-        @auth
-            <a href="{{ route('Books.create') }}" class="btn btn-primary">Create new book</a>
-        @endauth
+    <div class="w-50 m-auto pb-5">
+        <input type="text" id="keyword" placeholder="Search for book.." class="form-control">
     </div>
+    {{-- <div>
+        <input type="text" id="keyword">
+    </div> --}}
 
     <div id="allBooks">
-    @foreach($books as $book)
-        <hr>
-        @if ($book->img !== null)
-            <img src='{{ asset("uploads/$book->img") }}' width="100" height="100">
-        @endif
-        <a href="{{ route('showBooks', $book->id) }}">
-            <h2>{{ $book->name }}</h2>
-        </a>
-        <p>{{ $book->desc }}</p>
-        <p class="text-muted">Price: {{ $book->price }} EGP</p>
-        <a href="{{ route('showBooks', $book->id) }}" class="btn btn-primary">Show</a>
-
-        @auth
-            <a href="{{ route('Books.edit', $book->id) }}" class="btn btn-info">Edit</a>
-            @if(Auth::user()->role == 'admin')
-                <a href="{{ route('Books.delete', $book->id) }}" class="btn btn-danger">Delete</a>
+        <div class="d-flex justify-content-between align-items-center">
+            <h1>All Books</h1>
+            @auth
+                <a href="{{ route('Books.create') }}" class="btn btn-primary">Create new book</a>
+            @endauth
+        </div>
+        
+        @foreach($books as $book)
+            <hr>
+            @if ($book->img !== null)
+                <img src='{{ asset("uploads/$book->img") }}' width="100" height="100">
             @endif
-        @endauth
-    @endforeach
+            <a href="{{ route('showBooks', $book->id) }}">
+                <h2>{{ $book->name }}</h2>
+            </a>
+            <p>{{ $book->desc }}</p>
+            <p class="text-muted">Price: {{ $book->price }} EGP</p>
+            <a href="{{ route('showBooks', $book->id) }}" class="btn btn-primary">Show</a>
+
+            @auth
+                <a href="{{ route('Books.edit', $book->id) }}" class="btn btn-info">Edit</a>
+                @if(Auth::user()->role == 'admin')
+                    <a href="{{ route('Books.delete', $book->id) }}" class="btn btn-danger">Delete</a>
+                @endif
+            @endauth
+        @endforeach
     </div>
 
     {{-- <div class="my-5">
@@ -70,11 +74,15 @@
                 success: function (data)
                 {
                     //console.log(data);
+
                     $('#allBooks').empty() //empty 3shan yms7ly ely bra el search
+                    
                     for (book of data) {
                         //console.log(book.name);
                         $('#allBooks').append(`
-                            <h3>${book.name}</h3>
+                            <a href="{{ route('showBooks', $book->id) }}">
+                                <h2>${book.name}</h2>
+                            </a>
                             <p>${book.desc}</p>
                         `)
                     }

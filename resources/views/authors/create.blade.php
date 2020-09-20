@@ -16,8 +16,9 @@
         <div class="form-group">
         <textarea class="form-control" rows="3" name="bio" placeholder="biography"></textarea>
         </div>
-        <div class="form-group">
-            <input type="file" class="form-control-file" name="img">
+        <div class="custom-file mb-3">
+            <input type="file" class="custom-file-input" id="customFile" name="img">
+            <label class="custom-file-label" for="customFile">Choose image</label>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

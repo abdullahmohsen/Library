@@ -23,7 +23,7 @@
     
     <hr>
 
-    <a href="{{ route('categories.index') }}">Back</a>
+    <a href="{{ route('categories.index') }}">Show all categories</a>
 
 
 @endsection

@@ -28,9 +28,14 @@
             @endforeach
         </select>
 
-        <div class="form-group">
-            <input type="file" class="form-control-file mt-3" name="img">
+        <div class="custom-file my-3">
+            <input type="file" class="custom-file-input" id="customFile" name="img">
+            <label class="custom-file-label" for="customFile">Choose image</label>
         </div>
+
+        {{-- <div class="form-group">
+            <input type="file" class="form-control-file mt-3" name="img">
+        </div> --}}
 
         <h6 class="mb-0">Select Categories:</h6>
         @foreach ($categories as $category)

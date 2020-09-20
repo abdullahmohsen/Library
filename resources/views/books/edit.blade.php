@@ -35,8 +35,9 @@
             <img src='{{ asset("uploads/$book->img") }}' class="img-fluid mt-3">
         @endif
 
-        <div class="form-group mt-3">
-            <input type="file" class="form-control-file" name="img">
+        <div class="custom-file my-3">
+            <input type="file" class="custom-file-input" id="customFile" name="img">
+            <label class="custom-file-label" for="customFile">Edit image</label>
         </div>
 
         <h6 class="mb-0">Select Categories:</h6>

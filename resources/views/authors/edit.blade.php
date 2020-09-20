@@ -19,9 +19,12 @@
         @if ($author->img !== null)
             <img src='{{ asset("uploads/$author->img") }}' class="img-fluid">
         @endif
-        <div class="form-group mt-3">
-            <input type="file" class="form-control-file" name="img">
+
+        <div class="custom-file mb-3">
+            <input type="file" class="custom-file-input" id="customFile" name="img">
+            <label class="custom-file-label" for="customFile">Edit image</label>
         </div>
+
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 
