@@ -60,10 +60,19 @@
                     Change language
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ route('lang.ar') }}">Arabic</a>
-                    <a class="dropdown-item" href="{{ route('lang.en') }}">English</a>
+                    <a class="dropdown-item" href="{{ route('lang.ar') }}">@lang('site.langAr')</a>
+                    <a class="dropdown-item" href="{{ route('lang.en') }}">@lang('site.langEn')</a>
                 </div>
             </li>
+
+            {{-- <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="{{ route('lang.ar') }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    @lang('site.langAr')
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ route('lang.en') }}">@lang('site.langEn')</a>
+                </div>
+            </li>  --}}
 
         </ul>
     </div>

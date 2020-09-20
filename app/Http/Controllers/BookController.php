@@ -40,11 +40,12 @@ class BookController extends Controller
     //     ]);
     // }
 
-    public function show($id)
+    // public function show($id)
+    public function show(Book $book) //route model binding
     {
         // $books = Book::where('id', '=', 2)->first(); //Lw 3ayz ageb 7aga wa7da ba2olo arrow first aw method esmha find()
 
-        $book = Book::findOrFail($id); //OrFail 3shan lw ro7t l id msh mwgod ygbly error 404
+        // $book = Book::findOrFail($id); //OrFail 3shan lw ro7t l id msh mwgod ygbly error 404
 
         return view('books.show', [
             'book' => $book

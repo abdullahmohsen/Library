@@ -8,5 +8,7 @@ return [
     'notes' => 'My Notes',
     'regs' => 'Register',
     'login' => 'Login',
-    'logout' => 'Log Out'
+    'logout' => 'Log Out',
+    'langEn' => 'En',
+    'langAr' => 'Ar'
 ];

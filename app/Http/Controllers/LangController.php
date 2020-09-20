@@ -21,4 +21,11 @@ class LangController extends Controller
         Session::put('lang', 'ar');
         return back();
     }
+
+    // public function lang($lang)
+    // {
+    //     App::setLocale($lang);
+    //     Session::put('lang', $lang);
+    //     return back();
+    // }
 }

@@ -102,7 +102,7 @@ Route::get('/authors/search/{word}', 'AuthorController@search')->name('searchAut
 // Read Books
 Route::get('/books', 'BookController@index')->name('allBooks');
 // Route::get('/books/latest', 'BookController@latest')->name('latestBooks');
-Route::get('/books/show/{id}', 'BookController@show')->name('showBooks');
+Route::get('/books/show/{book}', 'BookController@show')->name('showBooks');
 // Route::get('/books/search/{word}', 'BookController@search')->name('searchBooks');
 
 //AJAX get request for real time search
@@ -130,4 +130,6 @@ Route::get('login/google/callback', 'AuthController@handleProviderCallbackGoogle
 Route::get('/lang/ar', 'LangController@ar')->name('lang.ar');
 Route::get('/lang/en', 'LangController@en')->name('lang.en');
     
+// Route::get('/lang/{lang}', 'LangController@en')->name('lang');
+
 });
