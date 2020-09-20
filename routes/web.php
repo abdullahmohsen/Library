@@ -13,6 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {
+    return view('welcome');
+});
+
+
+Route::middleware('setLang')->group(function(){
+
+    
 /* Authentication */
 //register
 Route::get('/register', 'AuthController@register')->name('auth.register');
@@ -21,6 +29,7 @@ Route::post('/handle-register', 'AuthController@handleRegister')->name('auth.han
 //login
 Route::get('/login', 'AuthController@login')->name('auth.login');
 Route::post('/handle-login', 'AuthController@handleLogin')->name('auth.handleLogin');
+
 
 Route::middleware('userAuth')->group(function() {
 
@@ -79,12 +88,6 @@ Route::middleware('userAuth')->group(function() {
 });
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
-
 /* Authors */
 
 // Read Authors
@@ -92,7 +95,6 @@ Route::get('/authors', 'AuthorController@index')->name('allAuthors');
 Route::get('/authors/latest', 'AuthorController@latest')->name('latestAuthors');
 Route::get('/authors/show/{id}', 'AuthorController@show')->name('showAuthor');
 Route::get('/authors/search/{word}', 'AuthorController@search')->name('searchAuthors');
-
 
 
 /* Books */
@@ -124,3 +126,8 @@ Route::get('login/facebook/callback', 'AuthController@handleProviderCallbackFace
 
 Route::get('login/google', 'AuthController@redirectToProviderGoogle')->name('auth.google.redirect');
 Route::get('login/google/callback', 'AuthController@handleProviderCallbackGoogle')->name('auth.google.callback');
+
+Route::get('/lang/ar', 'LangController@ar')->name('lang.ar');
+Route::get('/lang/en', 'LangController@en')->name('lang.en');
+    
+});
