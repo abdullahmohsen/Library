@@ -31,13 +31,13 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password)
         ]);
-        
+
         // Login direct
         Auth::Login($user);
-        
+
         //sending email
         Mail::to($user->email)->send(new RegisterMail($user->name));
-        
+
         return redirect( route('allBooks') ); //l7ad m3ml l saf7a l ra2esia
     }
 
@@ -52,11 +52,11 @@ class AuthController extends Controller
             'email' => 'required|email|max:100',
             'password' => 'required|string|min:5'
         ]);
-        
+
         // $is_login = Auth::attempt(['email' => $request->email, 'password' => $request->password]);
         // dd($is_login);
-    
-        if ( ! Auth::attempt(['email' => $request->email, 'password' => $request->password])) 
+
+        if ( ! Auth::attempt(['email' => $request->email, 'password' => $request->password]))
         {
             // return redirect( route('auth.login') );
             return back();
@@ -71,6 +71,7 @@ class AuthController extends Controller
         Auth::logout();
         return redirect( route('auth.login'));
     }
+    
 
     public function redirectToProviderGithub()
     {
@@ -85,21 +86,21 @@ class AuthController extends Controller
         // dd($user);
         $email = $user->email;
         $db_user = User::where('email', '=', $email)->first();
-        if ($db_user == null) 
+        if ($db_user == null)
         {
             $registered_user = User::create([
                 'name' => $user->name, //nickname
-                'email' => $user->email, 
+                'email' => $user->email,
                 'password' => Hash::make('12345'),
                 'oauth_token' => $user->token
             ]);
             Auth::login($registered_user); //khazen el data fel session
         }
-        else 
+        else
         {
             Auth::login($db_user);
         }
-        
+
         return redirect(route('allBooks'));
     }
 
@@ -118,21 +119,21 @@ class AuthController extends Controller
         // dd($user);
         $email = $user->email;
         $db_user = User::where('email', '=', $email)->first();
-        if ($db_user == null) 
+        if ($db_user == null)
         {
             $registered_user = User::create([
                 'name' => $user->name, //nickname
-                'email' => $user->email, 
+                'email' => $user->email,
                 'password' => Hash::make('12345'),
                 'oauth_token' => $user->token
             ]);
             Auth::login($registered_user); //khazen el data fel session
         }
-        else 
+        else
         {
             Auth::login($db_user);
         }
-        
+
         return redirect(route('allBooks'));
     }
 
@@ -149,21 +150,21 @@ class AuthController extends Controller
         // dd($user);
         $email = $user->email;
         $db_user = User::where('email', '=', $email)->first();
-        if ($db_user == null) 
+        if ($db_user == null)
         {
             $registered_user = User::create([
                 'name' => $user->name, //nickname
-                'email' => $user->email, 
+                'email' => $user->email,
                 'password' => Hash::make('12345'),
                 'oauth_token' => $user->token
             ]);
             Auth::login($registered_user); //khazen el data fel session
         }
-        else 
+        else
         {
             Auth::login($db_user);
         }
-        
+
         return redirect(route('allBooks'));
     }
 }

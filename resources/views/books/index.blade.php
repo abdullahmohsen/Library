@@ -25,10 +25,12 @@
         <div class="d-flex justify-content-between align-items-center">
             <h1>All Books</h1>
             @auth
-                <a href="{{ route('Books.create') }}" class="btn btn-primary">Create new book</a>
+                @if(Auth::user()->role == 'admin')
+                    <a href="{{ route('Books.create') }}" class="btn btn-primary">Create new book</a>
+                @endif
             @endauth
         </div>
-        
+
         @foreach($books as $book)
             <hr>
             @if ($book->img !== null)
@@ -42,8 +44,8 @@
             <a href="{{ route('showBooks', $book->id) }}" class="btn btn-primary">Show</a>
 
             @auth
-                <a href="{{ route('Books.edit', $book->id) }}" class="btn btn-info">Edit</a>
                 @if(Auth::user()->role == 'admin')
+                    <a href="{{ route('Books.edit', $book->id) }}" class="btn btn-info">Edit</a>
                     <a href="{{ route('Books.delete', $book->id) }}" class="btn btn-danger">Delete</a>
                 @endif
             @endauth
@@ -53,7 +55,8 @@
     {{-- <div class="my-5">
         {!! $books->render() !!} <!-- parser to HTML  -->
     </div> --}}
-@endsection 
+
+@endsection
 
 
 @section('script')
@@ -62,9 +65,9 @@
             let keyword = $(this).val() //read th value
             //console.log(keyword);
 
-            let url = "{{ route('books.search') }}" + "?keyword=" + keyword //url for get search with concatenate 
+            let url = "{{ route('books.search') }}" + "?keyword=" + keyword //url for get search with concatenate
             //console.log(url);
-            
+
             //AJAX request snippet (eb3t AJAX request bel data ely rg3alk)
             $.ajax({
                 type: "GET",
@@ -76,7 +79,7 @@
                     //console.log(data);
 
                     $('#allBooks').empty() //empty 3shan yms7ly ely bra el search
-                    
+
                     for (book of data) {
                         //console.log(book.name);
                         $('#allBooks').append(`
@@ -90,6 +93,5 @@
                 }
             })
         })
-        
     </script>
 @endsection

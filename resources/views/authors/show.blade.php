@@ -6,7 +6,7 @@
 
 @section('content')
     @if ($author->img !== null)
-    <img src='{{ asset("uploads/$author->img") }}' class="img-fluid">
+        <img src='{{ asset("uploads/$author->img") }}' class="img-fluid">
     @endif
     <h1>Show author {{ $author->id }}</h1>
     <hr>
@@ -15,16 +15,22 @@
     <hr>
 
     <h3>Books</h3>
-    @foreach ($author->books as $item)
-        <a href="{{ route('showBooks', $item->id) }}">
-            <p>{{ $item->name }}</p>
-        </a>
-    @endforeach
+    {{--  @if(!empty($author->books))  --}}
+    @if(count($author->books) > 0)
+        @foreach ($author->books as $item)
+            <a href="{{ route('showBooks', $item->id) }}">
+                <p>{{ $item->name }}</p>
+            </a>
+        @endforeach
+    @else
+        <p>There is no book yet</p>
+    @endif
+
     {{--  {{ $author->books }}  --}}
 
     <hr>
 
-    <a href="{{ route('allAuthors') }}">Back to all authors</a>
+    <a href="{{ route('allAuthors') }}">All authors</a>
 
 
 @endsection

@@ -18,7 +18,7 @@ class User extends Authenticatable
         'password'
     ];
 
-    //User hasMany notes 
+    //User hasMany notes
     public function notes()
     {
         return $this->hasMany('App\Note');

@@ -9,22 +9,28 @@
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
 
     @yield('styles')
-    
+
 </head>
 
 <body>
     <x-navbar></x-navbar>
 
-    <div class="container my-3 py-5">
+    <div class="container my-5 py-5">
         @yield('content')
     </div>
-    
-    
-    <script src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
+
+    <footer class="py-3 bg-primary fixed-bottom">
+        <div class="container">
+          {{--  <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>  --}}
+          <p class="footer-text m-0 text-center text-white">Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This library is made by <a class="text-white" href="https:linkedin.com/in/abdallah-mohsen/" target="_blank">Abdallah Mohsen</a></p>
+        </div>
+        <!-- /.container -->
+    </footer>
+
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/popper.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-
-    @yield('script') 
+    @yield('script')
 
 </body>
 </html>

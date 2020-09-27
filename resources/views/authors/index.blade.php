@@ -16,7 +16,9 @@
     <div class="d-flex justify-content-between align-items-start">
         <h1>All Authors</h1>
         @auth
-        <a href="{{ route('createAuthors') }}" class="btn btn-primary">Add new</a>
+            @if(Auth::user()->role == 'admin')
+                <a href="{{ route('createAuthors') }}" class="btn btn-primary">Add new</a>
+            @endif
         @endauth
     </div>
 
@@ -31,12 +33,14 @@
         <p>{{ $author->bio }}</p>
         <a href="{{ route('showAuthor', $author->id) }}" class="btn btn-primary">Show</a>
         @auth
-        <a href="{{ route('editAuthors', $author->id) }}" class="btn btn-info">Edit</a>
-        <a href="{{ route('deleteAuthors', $author->id) }}" class="btn btn-danger">Delete</a>
+            @if(Auth::user()->role == 'admin')
+                <a href="{{ route('editAuthors', $author->id) }}" class="btn btn-info">Edit</a>
+                <a href="{{ route('deleteAuthors', $author->id) }}" class="btn btn-danger">Delete</a>
+            @endif
         @endauth
     @endforeach
 
     <div class="my-5">
         {!! $authors->render() !!} <!-- parser to HTML  -->
     </div>
-@endsection 
+@endsection

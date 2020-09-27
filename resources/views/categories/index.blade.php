@@ -16,7 +16,9 @@
     <div class="d-flex justify-content-between align-items-center">
         <h1>All Categories</h1>
         @auth
-        <a href="{{ route('categories.create') }}" class="btn btn-primary">Create new category</a>
+            @if(Auth::user()->role == 'admin')
+                <a href="{{ route('categories.create') }}" class="btn btn-primary">Create new category</a>
+            @endif
         @endauth
     </div>
 
@@ -28,14 +30,14 @@
         <a href="{{ route('categories.show', $category->id) }}" class="btn btn-primary">Show</a>
 
         @auth
-            <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-info">Edit</a>
             @if(Auth::user()->role == 'admin')
+                <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-info">Edit</a>
                 <a href="{{ route('categories.delete', $category->id) }}" class="btn btn-danger">Delete</a>
             @endif
-         @endauth
+        @endauth
     @endforeach
 
-    <div class="my-5">
+    <div class="my-5 w-100 d-flex justify-content-center">
         {!! $categories->render() !!} <!-- parser to HTML  -->
     </div>
-@endsection 
+@endsection

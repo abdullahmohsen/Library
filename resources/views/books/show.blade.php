@@ -11,7 +11,7 @@
     @if ($book->img !== null)
     <img src='{{ asset("uploads/$book->img") }}' class="img-fluid">
     @endif
-    
+
     <h3>{{ $book->name }}</h3>
     <p class="mb-0">Categories:</p>
     <ul>
@@ -23,10 +23,10 @@
             </li>
         @endforeach
     </ul>
-    
+
     <p>{{ $book->desc }}</p>
     <p class="text-muted">Price: {{ $book->price }} EGP</p>
-    
+
     <p>By:
         <a href="{{ route('showAuthor', $book->author->id) }}">
             {{ $book->author->name }}
@@ -36,7 +36,7 @@
 
     <hr>
 
-    <a href="{{ route('allBooks') }}">Back to all books</a>
+    <a href="{{ route('allBooks') }}">All books</a>
 
 
 @endsection
