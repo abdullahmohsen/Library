@@ -12,14 +12,14 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-})->name('message');
-
-
-
 Route::middleware('setLang')->group(function(){
+
+
+
+
+    Route::get('/', function () {
+        return view('welcome');
+    })->name('message');
 
     Route::post('/message/send', 'MessageController@send')->name('message.send');
 
@@ -138,3 +138,8 @@ Route::middleware('setLang')->group(function(){
     // Route::get('/lang/{lang}', 'LangController@en')->name('lang');
 
 });
+
+
+//Route::group(['prefix' => 'users', 'middleware' => 'auth'], function(){
+
+//})

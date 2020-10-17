@@ -46,24 +46,65 @@
                 </li>
             @endguest
 
-            @auth
+            {{--  @auth
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('auth.logout') }}">@lang('site.logout')</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active">{{ Auth::user()->role }}: {{ Auth::user()->name }}</a>
                 </li>
+            @endauth  --}}
+
+            @auth
+                <li class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        {{ Auth::user()->role }}: {{ Auth::user()->name }}
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('auth.logout') }}">@lang('site.logout')</a>
+                    </div>
+                </li>
             @endauth
 
-            <li class="nav-item dropdown">
+
+            {{-- <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    language
+                    @if(Route::currentRouteName() == 'lang.ar') @lang('site.langEn') @else @lang('site.langAr') @endif
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ route('lang.ar') }}">@lang('site.langAr')</a>
-                    <a class="dropdown-item" href="{{ route('lang.en') }}">@lang('site.langEn')</a>
+                    @if(Route::currentRouteName() == 'lang.en')
+                        <a class="dropdown-item" href="{{ route('lang.ar') }}">@lang('site.langAr')</a>
+                    @else
+                        <a class="dropdown-item" href="{{ route('lang.en') }}">@lang('site.langEn')</a>
+                    @endif
                 </div>
-            </li>
+            </li> --}}
+
+             @if(Session::get('lang') == 'ar')
+
+                <li class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="{{ route('lang.ar') }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        @lang('site.langAr')
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('lang.en') }}">@lang('site.langEn')</a>
+                    </div>
+                </li>
+            @else
+                <li class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="{{ route('lang.en') }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        @lang('site.langEn')
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('lang.ar') }}">@lang('site.langAr')</a>
+                    </div>
+                </li>
+            @endif
+
+
 
             {{-- <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="{{ route('lang.ar') }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -14,17 +14,17 @@ class BookController extends Controller
         // call the model to fetch all books
         // $books = Book::orderBy('id', 'DESC')->paginate(4);
         $books = Book::orderBy('id', 'DESC')->get();
-        
+
 
         // $books = Book::get(); //select all
         // $books = Book::select('name', 'desc')->get();
         // $books = Book::where('id', '>=', 2)->get();
         // $books = Book::select('name', 'desc')->where('id', '>=', 2)->get();
         // $books = Book::select('name', 'desc')->where('id', '>=', 2)->orderBy('id', 'DESC')->get();
-        // dd($books); //dump & die
+
         // return view('books.index', compact('books')); //El path bekon mn awol folder el view
 
-        return view('books.index', [ 
+        return view('books.index', [
             'books' => $books
         ]);
     }
@@ -67,7 +67,7 @@ class BookController extends Controller
     {
         $authors = Author::select('id', 'name')->get(); //bagbha mn el database 3shan astkhdemha fel dropdown
         $categories = Category::select('id', 'name')->get(); //bagbha mn el database 3shan astkhdemha fel checkbox
-        
+
         return view('books.create', [
             'authors' => $authors,
             'categories' => $categories
@@ -180,16 +180,16 @@ class BookController extends Controller
     public function delete($id)
     {
         $book = Book::findOrFail($id);
-        
+
         $name = $book->img;
         if($name !== null)
         {
             //Delete img from folder
-            unlink( public_path("uploads/$name") ); 
+            unlink( public_path("uploads/$name") );
         }
 
         // $book->categories()->sync([]);
-            
+
         $book->delete();
 
         return back();

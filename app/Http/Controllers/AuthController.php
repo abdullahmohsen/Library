@@ -71,7 +71,7 @@ class AuthController extends Controller
         Auth::logout();
         return redirect( route('auth.login'));
     }
-    
+
 
     public function redirectToProviderGithub()
     {
@@ -124,7 +124,7 @@ class AuthController extends Controller
             $registered_user = User::create([
                 'name' => $user->name, //nickname
                 'email' => $user->email,
-                'password' => Hash::make('12345'),
+                'password' => Hash::make('12345678'),
                 'oauth_token' => $user->token
             ]);
             Auth::login($registered_user); //khazen el data fel session

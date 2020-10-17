@@ -9,6 +9,6 @@ return [
     'regs' => 'Register',
     'login' => 'Login',
     'logout' => 'Log Out',
-    'langEn' => 'En',
-    'langAr' => 'Ar'
+    'langEn' => 'English',
+    'langAr' => 'Arabic'
 ];

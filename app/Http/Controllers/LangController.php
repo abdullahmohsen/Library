@@ -12,6 +12,7 @@ class LangController extends Controller
     {
         App::setLocale('en');
         Session::put('lang', 'en');
+        
         return back();
     }
 

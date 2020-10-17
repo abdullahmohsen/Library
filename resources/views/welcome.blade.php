@@ -35,7 +35,7 @@
         $('#msgErrors').hide()
         $('#msgErrors').empty()
 
-        //3shan 22t3 el data mn el form b create object mn class el FormData w bb3tlo fel constract id el form w hia btcreate array mn gowa fa ba2olo of zero
+        //3shan akhod el data mn el form b create object mn class el FormData w bb3tlo fel constract id el form w hia btcreate array mn gowa fa ba2olo of zero
         let msgData = new FormData($('#msgForm')[0])
 
         //console.log(msgData);
