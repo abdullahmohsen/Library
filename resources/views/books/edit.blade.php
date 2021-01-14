@@ -27,7 +27,7 @@
             @foreach ($authors as $author)
                 <option value="{{ $author->id }}" @if($author->id == $book->author_id) selected @endif >
                     {{ $author->name }}
-                </option> 
+                </option>
             @endforeach
         </select>
 
@@ -43,7 +43,12 @@
         <h6 class="mb-0">Select Categories:</h6>
         @foreach ($categories as $category)
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="category_ids[]" value="{{ $category->id }}" id="defaultCheck1">
+                <input class="form-check-input" type="checkbox" name="category_ids[]" value="{{ $category->id }}" id="defaultCheck1"
+                @foreach($book->categories as $book->category)
+                    @if($category->id == $book->category->id)
+                        checked
+                    @endif
+                @endforeach>
                 <label class="form-check-label" for="defaultCheck1">
                     {{ $category->name }}
                 </label>

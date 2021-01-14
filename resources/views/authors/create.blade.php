@@ -7,14 +7,14 @@
 
 @section('content')
     @include('inc/errors')
-    
+
     <form method="POST" action="{{ route('storeAuthors') }}" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
-        <input type="text" class="form-control" name="name" placeholder="name">
+            <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="name">
         </div>
         <div class="form-group">
-        <textarea class="form-control" rows="3" name="bio" placeholder="biography"></textarea>
+        <textarea class="form-control" rows="3" name="bio" placeholder="biography">{{ old('bio') }}</textarea>
         </div>
         <div class="custom-file mb-3">
             <input type="file" class="custom-file-input" id="customFile" name="img">

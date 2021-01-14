@@ -17,12 +17,12 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name', 100);
             $table->string('password', 100);
-            $table->string('email', 100);
+            $table->string('email', 100)->unique();
 
             // roles: admin, user
             // is_admin -> 1,0
             // is_user -> 1,0
-            
+
             $table->enum('role', ['admin', 'user'])->default('user');
             // $table->boolean('is_admin')->default(0);
 

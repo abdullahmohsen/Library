@@ -11,7 +11,7 @@ class ApiBookController extends Controller
     {
         $books = Book::with('author', 'categories')->get();
         // $books = Book::select('id', 'name')->get();
-        
+
         return response()->json($books);
     }
 
@@ -34,7 +34,7 @@ class ApiBookController extends Controller
             'category_ids.*' => 'exists:categories,id' //mwgoda fel table categories fel column id
         ]);
 
-        if ($validator->fails()) 
+        if ($validator->fails())
         {
            $errors = $validator->errors();
             return response()->json($errors);
@@ -48,7 +48,7 @@ class ApiBookController extends Controller
         $book = Book::create([
             'name' => $request->name,
             'desc' => $request->desc,
-            'img' => $name, 
+            'img' => $name,
             'price' => $request->price,
             'author_id' => $request->author_id
         ]);
@@ -71,7 +71,7 @@ class ApiBookController extends Controller
             'category_ids.*' => 'exists:categories,id'
         ]);
 
-        if ($validator->fails()) 
+        if ($validator->fails())
         {
            $errors = $validator->errors();
             return response()->json($errors);
@@ -110,13 +110,13 @@ class ApiBookController extends Controller
     public function delete($id)
     {
         $book = Book::findOrFail($id);
-        
+
         $name = $book->img;
         if($name !== null)
         {
-            unlink( public_path("uploads/$name") ); 
+            unlink( public_path("uploads/$name") );
         }
-            
+
         $book->delete();
 
         $success = "Book deleted successfully";

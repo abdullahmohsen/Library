@@ -93,11 +93,11 @@ class BookController extends Controller
         $img = $request->img; //or $request->file('img');
         $ext = $img->getClientOriginalExtension();
         $name = "book-" . uniqid() . ".$ext";
-        $img->move( public_path('uploads'), $name );
+        $img->move(public_path('uploads'), $name);
 
         //1st
         // $name = $request->name;
-        // $desc = $request->desc;
+    // $desc = $request->desc;
         // $request->all();
         // dd($name);
 
@@ -112,26 +112,28 @@ class BookController extends Controller
 
         $book->categories()->sync($request->category_ids);
 
-        return redirect( route('allBooks') );
-
+        return redirect(route('allBooks'));
     }
 
     public function edit($id)
     {
         $book = Book::findOrFail($id);
-        $authors = Author::select('id', 'name')->get(); //for dropdown
+        $authors = Author::select('id', 'name')->get();
         $categories = Category::select('id', 'name')->get();
+        $selected_categories = $book->categories;
 
-        return view('books.edit',[
+        // dd($selected_categories);
+
+        return view('books.edit', [
             'book' => $book,
             'authors' => $authors,
-            'categories' => $categories
+            'categories' => $categories,
+            'selected_categories' => $selected_categories
         ]);
     }
 
     public function update($id, Request $request)
     {
-        //validation
         $request->validate([
             'name' => 'required|string|max:100',
             'desc' => 'required|string',
@@ -146,20 +148,18 @@ class BookController extends Controller
         $name = $book->img;
 
         //Lw fe image
-        if($request->hasFile('img'))
-        {
+        if ($request->hasFile('img')) {
             //if he uploaded new image
-            if($name !== null)
-            {
+            if ($name !== null) {
                 //delete the old img
-                unlink( public_path("uploads/$name") );
+                unlink(public_path("uploads/$name"));
             }
 
             //upload the new img
             $img = $request->img; //or file('img');
             $ext = $img->getClientOriginalExtension();
             $name = "book-" . uniqid() . ".$ext";
-            $img->move( public_path('uploads'), $name );
+            $img->move(public_path('uploads'), $name);
         }
 
         $book->update([
@@ -173,7 +173,7 @@ class BookController extends Controller
         $book->categories()->sync($request->category_ids);
 
         // return redirect( route('Books.edit', $id) );
-        return redirect( route('allBooks') );
+        return redirect(route('allBooks'));
         // return back();
     }
 
@@ -182,10 +182,9 @@ class BookController extends Controller
         $book = Book::findOrFail($id);
 
         $name = $book->img;
-        if($name !== null)
-        {
+        if ($name !== null) {
             //Delete img from folder
-            unlink( public_path("uploads/$name") );
+            unlink(public_path("uploads/$name"));
         }
 
         // $book->categories()->sync([]);

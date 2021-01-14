@@ -21,9 +21,19 @@
                     @lang('site.cats')
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    @foreach ($categories as $category)
-                        <a class="dropdown-item" href="{{ route('categories.show', $category->id) }}">{{$category->name}}</a>
-                    @endforeach
+                    @if(count($categories))
+                        @foreach ($categories as $category)
+                            <a class="dropdown-item" href="{{ route('categories.show', $category->id) }}">{{$category->name}}</a>
+                        @endforeach
+                    @else
+                        <p style="padding: 5px">There's no categories in our database
+                            @auth
+                                @if(Auth::user()->role == 'admin')
+                                    , <a href="{{ route('categories.create') }}">Create new</a>
+                                @endif
+                            @endauth
+                        </p>
+                    @endif
                 </div>
             </li>
             @auth

@@ -22,7 +22,7 @@ class AuthController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:100',
-            'email' => 'required|email|max:100',
+            'email' => 'required|email|max:100|unique:users,email',
             'password' => 'required|string|min:5'
         ]);
 
@@ -85,13 +85,13 @@ class AuthController extends Controller
         // $user->token;
         // dd($user);
         $email = $user->email;
-        $db_user = User::where('email', '=', $email)->first();
+        $db_user = User::where('email', $email)->first();
         if ($db_user == null)
         {
             $registered_user = User::create([
                 'name' => $user->name, //nickname
                 'email' => $user->email,
-                'password' => Hash::make('12345'),
+                'password' => Hash::make('123456789'),
                 'oauth_token' => $user->token
             ]);
             Auth::login($registered_user); //khazen el data fel session
@@ -118,13 +118,13 @@ class AuthController extends Controller
         // $user->token;
         // dd($user);
         $email = $user->email;
-        $db_user = User::where('email', '=', $email)->first();
+        $db_user = User::where('email', $email)->first();
         if ($db_user == null)
         {
             $registered_user = User::create([
                 'name' => $user->name, //nickname
                 'email' => $user->email,
-                'password' => Hash::make('12345678'),
+                'password' => Hash::make('123456789'),
                 'oauth_token' => $user->token
             ]);
             Auth::login($registered_user); //khazen el data fel session
@@ -149,13 +149,13 @@ class AuthController extends Controller
         // $user->token;
         // dd($user);
         $email = $user->email;
-        $db_user = User::where('email', '=', $email)->first();
+        $db_user = User::where('email', $email)->first();
         if ($db_user == null)
         {
             $registered_user = User::create([
                 'name' => $user->name, //nickname
                 'email' => $user->email,
-                'password' => Hash::make('12345'),
+                'password' => Hash::make('123456789'),
                 'oauth_token' => $user->token
             ]);
             Auth::login($registered_user); //khazen el data fel session

@@ -15,12 +15,12 @@ class CreateBooksTable extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
-            
+
             $table->string('name', 100);
             $table->text('desc');
             $table->string('img', 100)->nullable();
             $table->float('price', 8, 2);
-            $table->foreignId('author_id')->constrained();
+            $table->foreignId('author_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
 
             $table->timestamps();
         });

@@ -14,9 +14,11 @@
 
 @section('content')
 
-    <div class="w-50 m-auto pb-5">
-        <input type="text" id="keyword" placeholder="Search for book.." class="form-control">
-    </div>
+    @if(count($books))
+        <div class="w-50 m-auto pb-5">
+            <input type="text" id="keyword" placeholder="Search for book.." class="form-control">
+        </div>
+    @endif
     {{-- <div>
         <input type="text" id="keyword">
     </div> --}}
@@ -31,25 +33,35 @@
             @endauth
         </div>
 
-        @foreach($books as $book)
-            <hr>
-            @if ($book->img !== null)
-                <img src='{{ asset("uploads/$book->img") }}' width="100" height="100">
-            @endif
-            <a href="{{ route('showBooks', $book->id) }}">
-                <h2>{{ $book->name }}</h2>
-            </a>
-            <p>{{ $book->desc }}</p>
-            <p class="text-muted">Price: {{ $book->price }} EGP</p>
-            <a href="{{ route('showBooks', $book->id) }}" class="btn btn-primary">Show</a>
-
-            @auth
-                @if(Auth::user()->role == 'admin')
-                    <a href="{{ route('Books.edit', $book->id) }}" class="btn btn-info">Edit</a>
-                    <a href="{{ route('Books.delete', $book->id) }}" class="btn btn-danger">Delete</a>
+        <hr>
+        @if(count($books))
+            @foreach($books as $book)
+                @if ($book->img !== null)
+                    <img src='{{ asset("uploads/$book->img") }}' width="100" height="100">
                 @endif
-            @endauth
-        @endforeach
+                <a href="{{ route('showBooks', $book->id) }}">
+                    <h2>{{ $book->name }}</h2>
+                </a>
+                <p>{{ $book->desc }}</p>
+                <p class="text-muted">Price: {{ $book->price }} EGP</p>
+                <a href="{{ route('showBooks', $book->id) }}" class="btn btn-primary">Show</a>
+
+                @auth
+                    @if(Auth::user()->role == 'admin')
+                        <a href="{{ route('Books.edit', $book->id) }}" class="btn btn-info">Edit</a>
+                        <a href="{{ route('Books.delete', $book->id) }}" class="btn btn-danger">Delete</a>
+                    @endif
+                @endauth
+            @endforeach
+        @else
+            <p style="font-size: 20px">There's no books in our database
+                @auth
+                    @if(Auth::user()->role == 'admin')
+                        , <a href="{{ route('Books.create') }}">Create new</a>
+                    @endif
+                @endauth
+            </p>
+        @endif
     </div>
 
     {{-- <div class="my-5">
@@ -76,17 +88,16 @@
                 processData: false,
                 success: function (data)
                 {
-                    //console.log(data);
-
                     $('#allBooks').empty() //empty 3shan yms7ly ely bra el search
 
                     for (book of data) {
-                        //console.log(book.name);
                         $('#allBooks').append(`
+                        @if(count($books))
                             <a href="{{ route('showBooks', $book->id) }}">
                                 <h2>${book.name}</h2>
                             </a>
                             <p>${book.desc}</p>
+                        @endif
                         `)
                     }
                     //if (data.length == 0){ }
